@@ -7,6 +7,7 @@ function editNav() {
     x.className = "topnav";
   }
 }
+
 // Fonction pour afficher le message d'erreur
 function afficherErreur(element, message) {
   const elementErreur = document.createElement('div');
@@ -16,6 +17,7 @@ function afficherErreur(element, message) {
   elementErreur.style.fontSize = '12px';
   element.parentNode.insertBefore(elementErreur, element.nextSibling);
 }
+
 // Fonction pour supprimer le message d'erreur
 function supprimerErreur(element) {
   const elementSuivant = element.nextSibling;
@@ -23,6 +25,7 @@ function supprimerErreur(element) {
     elementSuivant.remove();
   }
 }
+
 // Fonction de validation du formulaire
 function validerFormulaire() {
   const prenom = document.getElementById('first');
@@ -33,12 +36,15 @@ function validerFormulaire() {
   const lieu = document.querySelector('input[name="location"]:checked');
   const checkbox1 = document.getElementById('checkbox1');
   const checkbox2 = document.getElementById('checkbox2');
+
   // Réinitialiser les erreurs précédentes
   const elementsErreur = document.querySelectorAll('.formData-error');
   elementsErreur.forEach((elementErreur) => elementErreur.remove());
+
   // Valider le prénom
   if (prenom.value.trim() === '') {
-    afficherErreur(prenom, 'Prénom requis');  }
+    afficherErreur(prenom, 'Prénom requis');
+  }
 
   // Valider le nom
   if (nom.value.trim() === '') {
@@ -90,47 +96,35 @@ const formulaire = document.forms['reserve'];
 const modalSuccess = document.createElement('div'); // Nouvelle div pour le message de succès
 modalSuccess.classList.add('modal-success'); // + classe CSS à cette div
 formulaire.insertAdjacentElement('beforebegin', modalSuccess); // Insérer la nouvelle div juste avant le formulaire
+
 formulaire.addEventListener('submit', (e) => {
-  e.preventDefault(); // Nécessaire pour soumettre manuellement par la suite
+  e.preventDefault(); //necessaire pour soumettre manuellement par la suite
   if (validerFormulaire()) {
+
     // Cacher le formulaire
-    formulaire.style.display = 'none'; // On change la propriété CSS à none pour le rendre invisible
-
-    // Créer une nouvelle div avant le texte qui tourne
-    const divAvant = document.createElement('div');
-    divAvant.style.height = '320px'; // Définir la hauteur à 500 pixels
-    modalSuccess.insertAdjacentElement('beforebegin', divAvant); // Insérer la nouvelle div avant le message de succès
-
+    formulaire.style.display = 'none'; // on change la propriété CSS à none pour le rendre invisible
     modalSuccess.textContent = 'Formulaire soumis avec succès'; // Mettre à jour le message de succès
     modalSuccess.style.color = 'red'; // Appliquer la couleur rouge
     modalSuccess.style.fontSize = '24px'; // Taille de la police en grande lettre
 
-    // Créer une nouvelle div après le texte qui tourne
-    const divApres = document.createElement('div');
-    divApres.style.height = '320px'; // Définir la hauteur à 500 pixels
-    modalSuccess.insertAdjacentElement('afterend', divApres); // Insérer la nouvelle div après le message de succès
-
-    // Appliquer la rotation autour de l'axe X en utilisant la propriété transform
-    let rotationAngle = 0;
-    const rotationInterval = setInterval(() => {
-      modalSuccess.style.transform = `rotateX(${rotationAngle}deg`;
-      rotationAngle += 12;
-    }, 50);
-
+     // Appliquer la rotation autour de l'axe X en utilisant la propriété transform
+     let rotationAngle = 0;
+     const rotationInterval = setInterval(() => { //intervalle qui execute une fonction toute les 50 ms
+       modalSuccess.style.transform = `rotateX(${rotationAngle}deg)`;
+       rotationAngle += 12; // Augmenter l'angle de rotation à chaque intervalle
+     }, 50); // Intervalle de 50 millisecondes
+    
     formulaire.reset();
 
-    // Supprimer le message de succès après 4 secondes (4000 millisecondes)
+    // Supprimer le message de succès après 4 secondes (4000 millisecondes) en créant un délai de 4s pour executer la fonction
     setTimeout(() => {
-      clearInterval(rotationInterval);
-      modalSuccess.style.transform = '';
-      modalSuccess.textContent = '';
-
-      // Supprimer les divs ajoutées
-      divAvant.remove();
-      divApres.remove();
+      clearInterval(rotationInterval); // Arrêter l'intervalle de rotation
+      modalSuccess.style.transform = ''; // Réinitialiser la transformation
+      modalSuccess.textContent = ''; // Effacer le contenu du message
 
       // Afficher à nouveau le formulaire
       formulaire.style.display = 'block';
+
     }, 4000);
   }
 });
