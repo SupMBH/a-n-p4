@@ -98,7 +98,7 @@ formulaire.addEventListener('submit', (e) => {
 
     // Créer une nouvelle div avant le texte qui tourne
     const divAvant = document.createElement('div');
-    divAvant.style.height = '320px'; // Définir la hauteur à 500 pixels
+    divAvant.style.height = '320px'; // Définir la hauteur à 320 pixels pour correspondre parfaitement 
     modalSuccess.insertAdjacentElement('beforebegin', divAvant); // Insérer la nouvelle div avant le message de succès
 
     modalSuccess.textContent = 'Formulaire soumis avec succès'; // Mettre à jour le message de succès
@@ -107,7 +107,7 @@ formulaire.addEventListener('submit', (e) => {
 
     // Créer une nouvelle div après le texte qui tourne
     const divApres = document.createElement('div');
-    divApres.style.height = '320px'; // Définir la hauteur à 500 pixels
+    divApres.style.height = '320px'; // Définir la hauteur à 320 pixels pour correspondre parfaitement
     modalSuccess.insertAdjacentElement('afterend', divApres); // Insérer la nouvelle div après le message de succès
 
     // Appliquer la rotation autour de l'axe X en utilisant la propriété transform
